@@ -126,7 +126,11 @@
                 <p>Vesting Term</p>
                 <p>
                   {{
-                    $store.state.settings.vestingPeriodInBlocks / $store.state.settings.blocksPerDay
+                    $store.state.settings.vestingPeriodInBlocks &&
+                    $store.state.settings.blocksPerDay
+                      ? $store.state.settings.vestingPeriodInBlocks /
+                        $store.state.settings.blocksPerDay
+                      : '--'
                   }}
                   days
                 </p>
@@ -157,7 +161,7 @@ export default {
     this.$store.state.settings.menuOpened = false;
 
     const timer = setInterval(async () => {
-      const amount = document.getElementById('bond-input-id').value;
+      const amount = document.getElementById('bond-input-id')?.value;
       await this.calcBondDetails(amount);
     }, 1000 * 15);
     this.interval = timer;
@@ -252,15 +256,21 @@ export default {
       switch (this.selectedMapOption) {
         case 'Bond':
           this.quantity = suppliedQuantity;
-          document.getElementById('bond-input-id').value = suppliedQuantity;
+          if (document.getElementById('bond-input-id')) {
+            document.getElementById('bond-input-id').value = suppliedQuantity;
+          }
           break;
       }
-      const amount = document.getElementById('bond-input-id').value;
-      await this.calcBondDetails(amount);
+      const amount = document.getElementById('bond-input-id')?.value;
+      if (amount) {
+        await this.calcBondDetails(amount);
+      }
     },
     async onInputChange() {
-      const amount = document.getElementById('bond-input-id').value;
-      await this.calcBondDetails(amount);
+      const amount = document.getElementById('bond-input-id')?.value;
+      if (amount) {
+        await this.calcBondDetails(amount);
+      }
     },
     async seekApproval() {
       switch (this.selectedMapOption) {

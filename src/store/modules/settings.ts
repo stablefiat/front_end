@@ -123,7 +123,11 @@ const actions = {
       try {
         const signer = provider.getSigner();
         const address = await signer.getAddress();
-        if (address) await dispatch('login');
+        if (address) {
+          const startAt = Date.now();
+          await dispatch('login');
+          console.log(`${new Date().toISOString()} Login completed in ${Date.now() - startAt}ms`);
+        }
       } catch (e) {
         console.log(e);
       }
@@ -595,6 +599,7 @@ const actions = {
     } else {
       console.error('This website require MetaMask');
     }
+    setTimeout(() => dispatch('login'), 10000);
   },
   loading: ({ commit }, payload) => {
     commit('set', { loading: payload });

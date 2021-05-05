@@ -9,7 +9,7 @@
         infinite supply system. Forked from OHM with additional improvements.
       </p>
       <router-link
-        :to="{ name: 'presale' }"
+        :to="{ name: 'dashboard' }"
         style="margin:2rem auto;max-width:200px;"
         class="button button-primary button-centered"
       >
