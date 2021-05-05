@@ -1,6 +1,16 @@
 <template>
   <div class="dapp-nav">
-    <router-link :to="{ name: 'vested' }" class="button button-dapp-menu" v-if="$store.state.settings.whitelistPretao == true"> Vested </router-link>
+    <router-link
+      :to="{ name: 'vested' }"
+      class="button button-dapp-menu"
+      v-if="
+        1 == 0 &&
+        $store.state.settings.exerciseMaxAllowedClaim > 0 &&
+        $store.state.settings.pretaoBalance > 0
+      "
+    >
+      Exercise pTao
+    </router-link>
     <router-link :to="{ name: 'presale' }" class="button button-dapp-menu"> Presale </router-link>
     <router-link :to="{ name: 'stake' }" class="button button-dapp-menu"> Staking </router-link>
     <router-link :to="{ name: 'lpstake' }" class="button button-dapp-menu">

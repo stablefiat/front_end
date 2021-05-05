@@ -4,19 +4,22 @@
       <Navbar />
       <div class="wrapper">
         <div class="dapp-center-modal">
-          <div class="dapp-modal-wrapper" v-if="$store.state.settings.initializedPretao == true">
+          <div class="dapp-modal-wrapper" v-if="$store.state.settings.exerciseMaxAllowedClaim > 0">
             <div class="swap-input-column">
               <div class="balance-row">
                 <p>Balance</p>
                 <p class="balance-data">{{ $store.state.settings.balance }}</p>
                 <p>BUSD</p>
+                <p style="margin-left: 5px; margin-right: 1px">/</p>
+                <p class="balance-data">{{ $store.state.settings.pretaoBalance }}</p>
+                <p>pTAO</p>
               </div>
 
               <div class="swap-input-row">
                 <div class="swap-input-container">
                   <input
-                    @change="updateQuote"
                     v-model="value"
+                    v-on:change="updateValuesOnOutChange"
                     placeholder="0.0"
                     class="swap-input"
                     type="text"
@@ -24,7 +27,6 @@
                 </div>
 
                 <div class="cur-max-box">
-                  <img src="~/@/assets/binance-usd-busd-logo.svg" alt="" />
                   <div class="max-button" @click="maxAlloc">100%</div>
                 </div>
               </div>
@@ -35,29 +37,25 @@
 
               <div class="swap-ourput-row">
                 <div class="swap-output-container">
-                  <input
-                    v-model="$store.state.settings.amount"
-                    placeholder="0.0"
-                    class="swap-output"
-                    type="text"
-                  />
+                  <input v-model="amount" placeholder="0.0" class="swap-output" type="text" />
                 </div>
+                <div class="cur-max-box">
+                  <div class="max-button">TAO</div>
+                </div>
+              </div>
+              <div class="balance-row">
+                <p class="balance-data">{{ $store.state.settings.ohmBalance }}</p>
+                <p>TAO</p>
               </div>
 
               <span v-if="$store.state.settings.initializedPretao == true" style="margin-top: 30px">
                 <div v-if="hasAllowance" class="swap-button-container">
-                  <div class="swap-button" @click="sendBusd">SWAP</div>
+                  <div class="swap-button" @click="swap">SWAP</div>
                 </div>
                 <div v-else class="swap-button-container">
                   <div class="swap-button" @click="seekApproval">Approve</div>
                 </div>
               </span>
-
-              <div class="balance-row">
-                <p>Balance</p>
-                <p class="balance-data">{{ $store.state.settings.pretaoBalance }}</p>
-                <p>pTAO</p>
-              </div>
             </div>
           </div>
         </div>
@@ -80,6 +78,7 @@ export default {
       value: '',
       modalLoginOpen: false,
       modalMakepotionOpen: false,
+      amount: '',
     };
   },
   computed: {
@@ -93,10 +92,11 @@ export default {
     },
     hasAllowance() {
       if (parseFloat(this.value)) {
-        this.updateQuote();
         return (
-          parseInt(this.$store.state.settings.allowancePretao) >=
-          parseInt(ethers.utils.parseEther(this.value))
+          parseInt(this.$store.state.settings.exercisePtaoAllowance) >=
+            parseInt(ethers.utils.parseEther(this.value)) &&
+          parseInt(this.$store.state.settings.exerciseBusdAllowance) >=
+            parseInt(ethers.utils.parseEther(this.value))
         );
       }
       return false;
@@ -111,31 +111,34 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['buyPretao', 'getApprovalPretao', 'calculatePreTaoSaleQuote']),
+    ...mapActions(['exercisePtao', 'getApprovalExerciseBusd', 'getApprovalExercisePtao']),
     shorten,
     async seekApproval() {
-      await this.getApprovalPretao(this.value);
+      await this.getApprovalExerciseBusd(this.value);
+      await this.getApprovalExercisePtao(this.value);
     },
-    async claim() {
-      await this.claimPresale();
-    },
-    async sendBusd() {
-      await this.buyPretao(this.value);
-    },
-    async updateQuote() {
-      await this.calculatePreTaoSaleQuote(this.value);
+    async swap() {
+      await this.exercisePtao(this.value);
     },
     async maxAlloc() {
+
+      debugger;
       const settings = this.$store.state.settings;
-      // await this.getMaxPurchase();
-      console.log(settings.balance);
-      console.log(settings.allotment);
 
       this.value =
-        parseFloat(settings.balance) >= parseFloat(settings.allotment)
-          ? settings.allotment
+        parseFloat(settings.balance) >= parseFloat(settings.pretaoBalance)
+          ? settings.pretaoBalance
           : settings.balance;
-      await this.updateQuote();
+
+      const perc = parseFloat(settings.circSupply) / parseFloat(settings.totalSupply);
+      const ableToClaim = parseFloat(settings.exerciseAbleToClaim) * perc;
+
+      this.value = ableToClaim >= parseFloat(this.value) ? this.value : ableToClaim;
+
+      this.amount = this.value;
+    },
+    updateValuesOnOutChange() {
+      this.amount = this.value;
     },
   },
 };
