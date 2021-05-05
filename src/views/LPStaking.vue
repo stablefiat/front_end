@@ -33,8 +33,6 @@
               </div>
               <div v-if="isUnstake == true"></div>
 
-          
-
               <div class="stake-price-data-column">
                 <div class="stake-price-data-row">
                   <p class="price-label">Balance</p>
@@ -110,14 +108,14 @@ export default {
           lineHeight: '1',
           fontWeightSelected: 'bold',
           squareCorners: false,
-          noBorder: false,
+          noBorder: false
         },
         size: {
           fontSize: 1,
           height: 2.5,
           padding: 0.3,
           width: 15,
-          borderRadius: 5,
+          borderRadius: 5
         },
         items: {
           delay: 0.4,
@@ -125,14 +123,14 @@ export default {
           disabled: false,
           labels: [
             { name: 'Stake', color: 'black', backgroundColor: 'white' },
-            { name: 'Unstake', color: 'black', backgroundColor: 'white' },
-          ],
-        },
+            { name: 'Unstake', color: 'black', backgroundColor: 'white' }
+          ]
+        }
       },
       selectedMapOption: 'Stake',
       quantity: '',
       stakeToggle: true,
-      modalLoginOpen: false,
+      modalLoginOpen: false
     };
   },
   computed: {
@@ -167,7 +165,7 @@ export default {
         }
       }
       return false;
-    },
+    }
   },
 
   methods: {
@@ -222,8 +220,8 @@ export default {
     disconnect() {
       if (this.$store.state.settings.address) return this.$store.state.address.initial;
       return null;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

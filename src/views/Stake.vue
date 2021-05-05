@@ -43,7 +43,9 @@
                 </div>
                 <div class="stake-price-data-row">
                   <p class="price-label">Next Epoch Rewards</p>
-                  <p class="price-data">{{ trim($store.state.settings.nextEpochRewards, 4) }} TAO</p>
+                  <p class="price-data">
+                    {{ trim($store.state.settings.nextEpochRewards, 4) }} TAO
+                  </p>
                 </div>
                 <div class="stake-price-data-row">
                   <p class="price-label">Current Epoch</p>
@@ -75,8 +77,8 @@
                       :time="
                         ($store.state.settings.nextEpochBlock -
                           $store.state.settings.currentBlock) *
-                        3 *
-                        1000
+                          3 *
+                          1000
                       "
                       v-slot="{ days, hours, minutes, seconds }"
                     >
@@ -150,14 +152,14 @@ export default {
           lineHeight: '1',
           fontWeightSelected: 'bold',
           squareCorners: false,
-          noBorder: false,
+          noBorder: false
         },
         size: {
           fontSize: 1,
           height: 2.5,
           padding: 0.3,
           width: 15,
-          borderRadius: 5,
+          borderRadius: 5
         },
         items: {
           delay: 0.4,
@@ -165,14 +167,14 @@ export default {
           disabled: false,
           labels: [
             { name: 'Stake', color: 'black', backgroundColor: 'white' },
-            { name: 'Unstake', color: 'black', backgroundColor: 'white' },
-          ],
-        },
+            { name: 'Unstake', color: 'black', backgroundColor: 'white' }
+          ]
+        }
       },
       selectedMapOption: 'Stake',
       quantity: '',
       stakeToggle: true,
-      modalLoginOpen: false,
+      modalLoginOpen: false
     };
   },
   computed: {
@@ -200,7 +202,7 @@ export default {
         }
       }
       return false;
-    },
+    }
   },
 
   methods: {
@@ -210,7 +212,7 @@ export default {
       'stakeTAO',
       'unstakeTAO',
       'getunStakeApproval',
-      'getStakingAPY',
+      'getStakingAPY'
     ]),
     async executeStake() {
       console.log(this.selectedMapOption);
@@ -224,6 +226,7 @@ export default {
       //updatestats
     },
     setStake(value) {
+      console.log(`Set stake ${value}`);
       switch (this.selectedMapOption) {
         case 'Stake':
           this.quantity = this.$store.state.settings.ohmBalance;
@@ -261,8 +264,8 @@ export default {
     disconnect() {
       if (this.$store.state.settings.address) return this.$store.state.address.initial;
       return null;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

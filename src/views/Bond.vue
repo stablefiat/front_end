@@ -43,7 +43,12 @@
                 <div class="stake-price-data-row">
                   <p class="price-label">Bond Price</p>
                   <p id="bond-price-id" class="price-data">
-                    {{ trim($store.state.settings.bondPrice / 1000000000, 4) }} BUSD
+                    {{
+                      $store.state.settings.bondPrice
+                        ? trim($store.state.settings.bondPrice / 1000000000, 4)
+                        : 0
+                    }}
+                    BUSD
                   </p>
                 </div>
                 <div class="stake-price-data-row">
@@ -120,7 +125,13 @@
             <div class="row bond-data-row p-4">
               <div class="col-4 text-center">
                 <p>Debt Ratio</p>
-                <p>{{ trim($store.state.settings.debtRatio / 10000000, 2) }}%</p>
+                <p>
+                  {{
+                    $store.state.settings.debtRatio
+                      ? trim($store.state.settings.debtRatio / 10000000, 2)
+                      : '-- '
+                  }}%
+                </p>
               </div>
               <div class="col-4 text-center">
                 <p>Vesting Term</p>
@@ -137,7 +148,13 @@
               </div>
               <div class="col-4 text-center">
                 <p>Discount</p>
-                <p>{{ trim($store.state.settings.bondDiscount * 100, 2) }}%</p>
+                <p>
+                  {{
+                    $store.state.settings.bondDiscount
+                      ? trim($store.state.settings.bondDiscount * 100, 2)
+                      : '-- '
+                  }}%
+                </p>
               </div>
             </div>
           </div>

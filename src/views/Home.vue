@@ -28,8 +28,10 @@
           <div class="feature-block-desc">
             <h3>Backed by Assets</h3>
             <p>
-              Every TAO is backed by BUSD and TAO-BUSD LP in the treasury. This intrinsic value cannot
-              be diluted, providing a fundamental check on inflation.
+              {{
+                'Every TAO is backed by BUSD and TAO-BUSD LP in the treasury. This intrinsic value cannot' +
+                  ' be diluted, providing a fundamental check on inflation.'
+              }}
             </p>
           </div>
         </div>
