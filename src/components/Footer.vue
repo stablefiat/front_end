@@ -26,7 +26,7 @@
       </div>
 
       <div class="footer-app-button">
-        <router-link :to="{ name: 'presale' }" class="button button-primary"> Enter App </router-link>
+        <router-link :to="{ name: 'dashboard' }" class="button button-primary"> Enter App </router-link>
       </div>
     </div>
     <ModalLogin :open="modalLoginOpen" @close="modalLoginOpen = false" />

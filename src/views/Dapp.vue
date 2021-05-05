@@ -5,47 +5,45 @@
       <div v-else>
       </div>-->
       <div class="dapp-sidebar">
-
         <div class="dapp-menu-top">
           <div class="branding-header">
-
-            <img class="branding-header-icon" src="~/@/assets/logo.svg" alt="">
-          
+            <img class="branding-header-icon" src="~/@/assets/logo.svg" alt="" />
           </div>
           <div class="wallet-menu">
-          <a v-if="address" class="dapp-sidebar-button-connected button button-info">
-            <span class="login-bullet mr-2 ml-n2" />
-            {{ name || shorten(address) }}
-          </a>
-          <a v-else class="button button-primary" @click="modalLoginOpen = true">
-            Connect wallet
-          </a>
+            <a v-if="address" class="dapp-sidebar-button-connected button button-info">
+              <span class="login-bullet mr-2 ml-n2" />
+              {{ name || shorten(address) }}
+            </a>
+            <a v-else class="button button-primary" @click="modalLoginOpen = true">
+              Connect wallet
+            </a>
           </div>
         </div>
 
         <div class="dapp-menu-links">
-        <Dav />
-
-
+          <Dav />
         </div>
 
         <div class="dapp-menu-social">
           <div class="social-row">
-            <a href=""><img src="~/@/assets/github.svg" alt="" class="social-icon-small"></a>
-            <a target="_blank" href="https://taodao-finance.medium.com"><img src="~/@/assets/medium.svg" alt="" class="social-icon-small"></a>
-            <a target="_blank" href="https://twitter.com/TaoDAO_Finance"><img src="~/@/assets/twitter.svg" alt="" class="social-icon-small"></a>
-            <a target="_blank" href="https://discord.gg/vFTCUZ7mpJ"><img src="~/@/assets/discord.svg" alt="" class="social-icon-small"></a>
+            <a href=""><img src="~/@/assets/github.svg" alt="" class="social-icon-small"/></a>
+            <a target="_blank" href="https://taodao-finance.medium.com"
+              ><img src="~/@/assets/medium.svg" alt="" class="social-icon-small"
+            /></a>
+            <a target="_blank" href="https://twitter.com/TaoDAO_Finance"
+              ><img src="~/@/assets/twitter.svg" alt="" class="social-icon-small"
+            /></a>
+            <a target="_blank" href="https://discord.gg/vFTCUZ7mpJ"
+              ><img src="~/@/assets/discord.svg" alt="" class="social-icon-small"
+            /></a>
           </div>
         </div>
       </div>
       <div class="wrapper">
-        
-<div class="dapp-center-modal"></div>
+        <div class="dapp-center-modal"></div>
       </div>
-
     </div>
     <ModalLogin :open="modalLoginOpen" @close="modalLoginOpen = false" />
-
   </div>
 </template>
 
@@ -73,7 +71,6 @@ export default {
     }
   },
   methods: {
-    
     ...mapActions(['SendDai']),
     handleSubmit() {
       this.SendDai({
@@ -92,4 +89,3 @@ export default {
   cursor: pointer;
 }
 </style>
-

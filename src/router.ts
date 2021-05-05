@@ -19,10 +19,7 @@ const routes: Array<RouteConfig> = [
   { path: '/stake', name: 'stake', component: Stake },
   { path: '/bond', name: 'bond', component: Bond },
   { path: '/lpstake', name: 'lpstake', component: LPStaking },
-  { path: '/presale', name: 'presale', component: Presale },
   { path: '/vested', name: 'vested', component: Vested },
-  //{ path: '/presale3', name: 'presale3', component: Presale3 },
-  // { path: '/migrate', name: 'migrate', component: Migrate },
   { path: '/app', name: 'dapp', component: Dapp }
 ];
 

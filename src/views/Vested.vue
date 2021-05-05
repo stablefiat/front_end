@@ -108,7 +108,7 @@ export default {
     disconnect() {
       if (this.$store.state.settings.address) return this.$store.state.address.initial;
       return null;
-    },
+    }
   },
   methods: {
     ...mapActions(['exercisePtao', 'getApprovalExerciseBusd', 'getApprovalExercisePtao']),

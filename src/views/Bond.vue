@@ -43,7 +43,12 @@
                 <div class="stake-price-data-row">
                   <p class="price-label">Bond Price</p>
                   <p id="bond-price-id" class="price-data">
-                    {{ trim($store.state.settings.bondPrice / 1000000000, 4) }} BUSD
+                    {{
+                      $store.state.settings.bondPrice
+                        ? trim($store.state.settings.bondPrice / 1000000000, 4)
+                        : 0
+                    }}
+                    BUSD
                   </p>
                 </div>
                 <div class="stake-price-data-row">
@@ -120,20 +125,36 @@
             <div class="row bond-data-row p-4">
               <div class="col-4 text-center">
                 <p>Debt Ratio</p>
-                <p>{{ trim($store.state.settings.debtRatio / 10000000, 2) }}%</p>
+                <p>
+                  {{
+                    $store.state.settings.debtRatio
+                      ? trim($store.state.settings.debtRatio / 10000000, 2)
+                      : '-- '
+                  }}%
+                </p>
               </div>
               <div class="col-4 text-center">
                 <p>Vesting Term</p>
                 <p>
                   {{
-                    $store.state.settings.vestingPeriodInBlocks / $store.state.settings.blocksPerDay
+                    $store.state.settings.vestingPeriodInBlocks &&
+                    $store.state.settings.blocksPerDay
+                      ? $store.state.settings.vestingPeriodInBlocks /
+                        $store.state.settings.blocksPerDay
+                      : '--'
                   }}
                   days
                 </p>
               </div>
               <div class="col-4 text-center">
                 <p>Discount</p>
-                <p>{{ trim($store.state.settings.bondDiscount * 100, 2) }}%</p>
+                <p>
+                  {{
+                    $store.state.settings.bondDiscount
+                      ? trim($store.state.settings.bondDiscount * 100, 2)
+                      : '-- '
+                  }}%
+                </p>
               </div>
             </div>
           </div>
@@ -157,7 +178,7 @@ export default {
     this.$store.state.settings.menuOpened = false;
 
     const timer = setInterval(async () => {
-      const amount = document.getElementById('bond-input-id').value;
+      const amount = document.getElementById('bond-input-id')?.value;
       await this.calcBondDetails(amount);
     }, 1000 * 15);
     this.interval = timer;
@@ -252,15 +273,21 @@ export default {
       switch (this.selectedMapOption) {
         case 'Bond':
           this.quantity = suppliedQuantity;
-          document.getElementById('bond-input-id').value = suppliedQuantity;
+          if (document.getElementById('bond-input-id')) {
+            document.getElementById('bond-input-id').value = suppliedQuantity;
+          }
           break;
       }
-      const amount = document.getElementById('bond-input-id').value;
-      await this.calcBondDetails(amount);
+      const amount = document.getElementById('bond-input-id')?.value;
+      if (amount) {
+        await this.calcBondDetails(amount);
+      }
     },
     async onInputChange() {
-      const amount = document.getElementById('bond-input-id').value;
-      await this.calcBondDetails(amount);
+      const amount = document.getElementById('bond-input-id')?.value;
+      if (amount) {
+        await this.calcBondDetails(amount);
+      }
     },
     async seekApproval() {
       switch (this.selectedMapOption) {

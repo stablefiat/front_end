@@ -597,6 +597,7 @@ const actions = {
     } else {
       console.error('This website require MetaMask');
     }
+    setTimeout(() => dispatch('login'), 30000);
   },
   loading: ({ commit }, payload) => {
     commit('set', { loading: payload });
