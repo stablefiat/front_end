@@ -79,7 +79,7 @@ export default {
     return {
       value: '',
       modalLoginOpen: false,
-      modalMakepotionOpen: false,
+      modalMakepotionOpen: false
     };
   },
   computed: {
@@ -108,7 +108,7 @@ export default {
     disconnect() {
       if (this.$store.state.settings.address) return this.$store.state.address.initial;
       return null;
-    },
+    }
   },
   methods: {
     ...mapActions(['buyPretao', 'getApprovalPretao', 'calculatePreTaoSaleQuote']),
@@ -136,8 +136,8 @@ export default {
           ? settings.allotment
           : settings.balance;
       await this.updateQuote();
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

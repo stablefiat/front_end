@@ -26,9 +26,6 @@
               <router-link :to="{ name: 'lpstake' }" class="">
                 <p>lpstake</p>
               </router-link>
-              <router-link :to="{ name: 'presale' }" class="">
-                <p>presale</p>
-              </router-link>
               <router-link :to="{ name: 'migrate' }" class="">
                 <p>migrate</p>
               </router-link>
@@ -74,9 +71,6 @@
         </div>
         <!-- 
       <div class="py-4">
-        <router-link :to="{ name: 'presale' }" class="button button-primary">
-          Enter App
-        </router-link></div>
          <div class="py-4">
           <a v-if="address" class="button button-info">
             <span class="login-bullet mr-2 ml-n2" />

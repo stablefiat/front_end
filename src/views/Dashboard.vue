@@ -10,7 +10,7 @@
         <div class="dapp-center-modal-dash">
           <b-container class="container-fullwidth">
             <b-row>
-              <b-col col="12" md="6" style="padding-right: 40px; border-right: 1px solid #fff">
+              <b-col lg="12" md="6" style="padding-right: 40px; border-right: 1px solid #fff">
                 <h1 class="stats-title">TAO Stats</h1>
 
                 <div class="dapp-center-stats-row">
@@ -81,7 +81,7 @@
                   </div>
                 </div>
               </b-col>
-              <b-col col="12" md="6" style="padding-left: 40px">
+              <b-col lg="12" md="6" style="padding-left: 40px">
                 <h1 class="stats-title">Protocol Stats</h1>
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
@@ -287,7 +287,6 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { shorten } from '@/helpers/utils.ts';
-import { ethers } from 'ethers';
 
 export default {
   async mounted() {
@@ -296,10 +295,10 @@ export default {
   data() {
     return {
       form: {
-        quantity: '',
+        quantity: ''
       },
       modalLoginOpen: false,
-      modalMakepotionOpen: false,
+      modalMakepotionOpen: false
     };
   },
   computed: {
@@ -314,14 +313,14 @@ export default {
     maxStrike() {
       const exchangeRate = this.settings.exchangeRates[this.form.asset];
       return exchangeRate && exchangeRate.usd ? exchangeRate.usd : 1e9;
-    },
+    }
   },
   methods: {
     ...mapActions(['SendDai']),
     handleSubmit() {
       this.SendDai({
         //address: '0xb72027693a5B717B9e28Ea5E12eC59b67c944Df7',
-        value: this.form.quantity,
+        value: this.form.quantity
       });
     },
 
@@ -343,8 +342,8 @@ export default {
     disconnect() {
       if (this.$store.state.settings.address) return this.$store.state.address.initial;
       return null;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
