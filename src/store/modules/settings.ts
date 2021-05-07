@@ -31,6 +31,7 @@ import { abi as BondContract } from '@/helpers/abi/BondContract.json';
 import { abi as BondCalcContract } from '@/helpers/abi/BondCalcContract.json';
 import { abi as PairContract } from '@/helpers/abi/PairContract.json';
 import { abi as PreTaoSales } from '@/helpers/abi/PreTaoSales.json';
+import { abi as ExercisePtao } from '@/helpers/abi/ExercisePtao.json';
 import cheerio from 'cheerio';
 
 import { whitelist } from '@/helpers/whitelist.json';
@@ -99,7 +100,11 @@ const state = {
   initializedPretao: false,
   pretaoBalance: 0,
   fiveDayRate: 0,
-  nextEpochRewards: 0
+  nextEpochRewards: 0,
+  exerciseMaxAllowedClaim: 0,
+  exerciseAbleToClaim: 0,
+  exercisePtaoAllowance: 0,
+  exerciseBusdAllowance: 0
 };
 
 const mutations = {
@@ -329,12 +334,6 @@ const actions = {
           taoCircSupply =
             taoTotalSupply - distributorBalance - rewardPoolBalance - bondBalance - presaleBalance;
 
-            console.log('taoTotalSupply', taoTotalSupply.toString())
-            console.log('distributorBalance', distributorBalance.toString())
-            console.log('rewardPoolBalance', rewardPoolBalance.toString())
-            console.log('bondBalance', bondBalance.toString())
-            console.log('presaleBalance', presaleBalance.toString())
-
           const vestingPeriodInBlocks = await bondingContract.vestingPeriodInBlocks();
 
           const totalDebtDo = await bondingContract.totalDebt();
@@ -355,6 +354,7 @@ const actions = {
           const totalLPValue = totalBusd * 2;
           lpPrice = totalLPValue / totalLP;
 
+          console.log('LpPrice', lpPrice.toString());
           taoTotalSupply = await ohmContract.totalSupply();
 
           const vaultPrincipleValuation = await bondingCalcContract.principleValuation(
@@ -539,6 +539,10 @@ const actions = {
         }
         //const balance = balanceBefore.toFixed(2);
         
+        await dispatch('getMaxPurchase');
+        await dispatch('getAllotmentPerBuyer');
+        await dispatch('getExerciseAllowance');
+
         await dispatch('getMaxPurchase');
         await dispatch('getAllotmentPerBuyer');
         await dispatch('getExerciseAllowance');
@@ -732,6 +736,136 @@ const actions = {
       marketPrice: marketPrice / Math.pow(10, 9)
     });
   },
+
+  async getExerciseAllowance({ commit }) {
+    if (state.address) {
+      const exerciseContract = await new ethers.Contract(
+        addresses[state.network.chainId].EXERCISE_PTAO_ADDRESS,
+        ExercisePtao,
+        provider
+      );
+
+      const getpTAOAbleToClaim = await exerciseContract.getpTAOAbleToClaim(state.address);
+
+      const maxAllowedToClaim = await exerciseContract.maxAllowedToClaim(state.address);
+
+      const daiContract = await new ethers.Contract(
+        addresses[state.network.chainId].DAI_ADDRESS,
+        ierc20Abi,
+        provider
+      );
+
+      const daiAllowance = await daiContract.allowance(
+        state.address,
+        addresses[state.network.chainId].EXERCISE_PTAO_ADDRESS
+      );
+
+      const ptaoContract = await new ethers.Contract(
+        addresses[state.network.chainId].PTAO_ADDRESS,
+        ierc20Abi,
+        provider
+      );
+
+      const ptaoAllowance = await ptaoContract.allowance(
+        state.address,
+        addresses[state.network.chainId].EXERCISE_PTAO_ADDRESS
+      );
+
+      commit('set', {
+        exercisePtaoAllowance: ptaoAllowance,
+        exerciseBusdAllowance: daiAllowance,
+        exerciseAbleToClaim: ethers.utils.formatEther(getpTAOAbleToClaim),
+        exerciseMaxAllowedClaim: ethers.utils.formatEther(maxAllowedToClaim)
+      });
+    }
+  },
+
+  async getApprovalExerciseBusd({ commit, dispatch }, value) {
+    const signer = provider.getSigner();
+    const daiContract = await new ethers.Contract(
+      addresses[state.network.chainId].DAI_ADDRESS,
+      ierc20Abi,
+      signer
+    );
+
+    if (value <= 0) return;
+
+    const approveTx = await daiContract.approve(
+      addresses[state.network.chainId].EXERCISE_PTAO_ADDRESS,
+      ethers.utils.parseEther(value).toString()
+    );
+    commit('set', { allowanceTx: 1 });
+    await approveTx.wait();
+    await dispatch('getExerciseAllowance');
+  },
+
+  async getApprovalExercisePtao({ commit, dispatch }, value) {
+    const signer = provider.getSigner();
+    const ptaoContract = await new ethers.Contract(
+      addresses[state.network.chainId].PTAO_ADDRESS,
+      ierc20Abi,
+      signer
+    );
+
+    if (value <= 0) return;
+
+    const approveTx = await ptaoContract.approve(
+      addresses[state.network.chainId].EXERCISE_PTAO_ADDRESS,
+      ethers.utils.parseEther(value).toString()
+    );
+    commit('set', { allowanceTx: 1 });
+    await approveTx.wait();
+    await dispatch('getExerciseAllowance');
+  },
+
+  async exercisePtao({ commit, dispatch }, value) {
+    
+    const signer = provider.getSigner();
+
+    const ptaoContract = new ethers.Contract(
+      addresses[state.network.chainId].PTAO_ADDRESS,
+      ierc20Abi,
+      signer
+    );
+    
+    const taoContract = new ethers.Contract(
+      addresses[state.network.chainId].OHM_ADDRESS,
+      ierc20Abi,
+      signer
+    );
+
+    const daiContract = new ethers.Contract(
+      addresses[state.network.chainId].DAI_ADDRESS,
+      ierc20Abi,
+      signer
+    );
+
+    const exerciseContract = await new ethers.Contract(
+      addresses[state.network.chainId].EXERCISE_PTAO_ADDRESS,
+      ExercisePtao,
+      signer
+    );
+
+
+    const presaleTX = await exerciseContract.exercisepTAO(ethers.utils.parseEther(value).toString());
+    await presaleTX.wait(console.log('Success'));
+
+    const balance = await daiContract.balanceOf(state.
+      address);
+    const pretaoBalance = await ptaoContract.balanceOf(state.address);
+    const taoBalance = await taoContract.balanceOf(state.address);
+
+
+    commit('set', {
+      balance: ethers.utils.formatEther(balance),
+      pretaoBalance: ethers.utils.formatEther(pretaoBalance),
+      ohmBalance: ethers.utils.formatUnits(taoBalance, 'gwei'),
+    });
+
+
+  },
+
+
 
   async getLPBondAllowance({ commit }) {
     if (state.address) {
