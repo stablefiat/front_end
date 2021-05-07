@@ -117,7 +117,7 @@ const mutations = {
 
 const actions = {
   init: async ({ commit, dispatch }) => {
-    commit('set', { loading: true });
+    // commit('set', { loading: true });
     // @ts-ignore
     if (typeof window.ethereum !== 'undefined') {
       const ethereum = window['ethereum'];
@@ -137,6 +137,7 @@ const actions = {
     commit('set', { loading: false });
   },
   login: async ({ commit, dispatch }) => {
+    const startAt = Date.now()
     if (provider) {
       try {
         let ohmContract,
@@ -246,16 +247,7 @@ const actions = {
             address,
             addresses[network.chainId].PRESALE_ADDRESS
           )!;
-
-          // const response = await fetch(
-          //   `https://api.allorigins.win/get?charset=ISO-8859-1&url=https://${
-          //     state.network.chainId == 56 ? 'www' : 'testnet'
-          //   }.bscscan.com/token/${addresses[state.network.chainId].OHM_ADDRESS}`
-          // );
-
-          const response = await fetch(`https://taodao-api.netlify.app/.netlify/functions/server`);
-
-          const holders = await response.json();
+          console.log('Allowance', allowance);
 
           const presaleContract = await new ethers.Contract(
             addresses[state.network.chainId].PRESALE_ADDRESS,
@@ -274,7 +266,7 @@ const actions = {
             boughtTao,
             claimable: ethers.utils.formatUnits(claimable, 'gwei'),
             isInitialized,
-            taoists: holders
+            allowance
           });
         } catch (ex) {
           console.log(ex);
@@ -490,6 +482,10 @@ const actions = {
           circSupply = await sohmMainContract.circulatingSupply();
         }
 
+        console.log('stakeAllowance', stakeAllowance);
+        commit('set', { stakeAllowance, unstakeAllowance, lpStakeAllowance });
+
+
         if (addresses[network.chainId].STAKING_ADDRESS) {
           stakingContract = new ethers.Contract(
             addresses[network.chainId].STAKING_ADDRESS,
@@ -542,8 +538,10 @@ const actions = {
           );
         }
         //const balance = balanceBefore.toFixed(2);
-        console.log('Allowance', allowance);
-        console.log('stakeAllowance', stakeAllowance);
+        
+        await dispatch('getMaxPurchase');
+        await dispatch('getAllotmentPerBuyer');
+        await dispatch('getExerciseAllowance');
 
         await dispatch('getMaxPurchase');
         await dispatch('getAllotmentPerBuyer');
@@ -590,13 +588,16 @@ const actions = {
           fiveDayRate,
           nextEpochRewards
         });
-        commit('set', { allowance, stakeAllowance, unstakeAllowance, lpStakeAllowance });
+        const response = await fetch(`https://taodao-api.netlify.app/.netlify/functions/server`);
+        const taoists = await response.json();
+        commit('set', { taoists });
       } catch (error) {
         console.error(error);
       }
     } else {
       console.error('This website require MetaMask');
     }
+    console.log(`Login done in ${Date.now() - startAt}ms`);
     setTimeout(() => dispatch('login'), 30000);
   },
   loading: ({ commit }, payload) => {

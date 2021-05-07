@@ -105,7 +105,14 @@
                 <div class="stake-price-data-row">
                   <p class="price-label">Upcoming APY</p>
 
-                  <p class="price-data">{{ $store.state.settings.stakingAPY | formatNumber }} %</p>
+                  <p class="price-data">
+                    {{
+                      $store.state.settings.stakingAPY !== 0 &&
+                      $store.state.settings.stakingAPY !== 100
+                        ? ($store.state.settings.stakingAPY | formatNumber) + '%'
+                        : 'Double reward last epoch, Reward will return epoch after'
+                    }}
+                  </p>
                   <!-- 1+rebase^1095-1 -->
                 </div>
                 <div class="stake-price-data-row">
