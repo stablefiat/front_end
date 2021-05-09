@@ -1,5 +1,14 @@
 <template>
   <div class="dapp-nav">
+    <div style="
+      color:#ffb703;
+     
+
+       " onClick="(function(){
+      window.open('https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x7065DdA3f8Ec5F6C155648BdeE4420c0525D93C6', '_blank');
+})();" class="button button-dapp-menu">
+      Buy Tao
+    </div>
     <router-link
       :to="{ name: 'vested' }"
       class="button button-dapp-menu"
