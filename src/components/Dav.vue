@@ -28,6 +28,8 @@
     <router-link :to="{ name: 'dashboard' }" class="button button-dapp-menu">
       Dashboard
     </router-link>
+
+    <a class="button button-dapp-menu" target="_blank" href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x7065dda3f8ec5f6c155648bdee4420c0525d93c6">Buy TAO</a>
   </div>
 </template>
 
