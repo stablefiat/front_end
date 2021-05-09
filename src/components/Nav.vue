@@ -34,6 +34,13 @@
               </router-link>
             </div>
           </div> -->
+          <a
+            class="button button-dapp-menu"
+            target="_blank"
+            href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x7065dda3f8ec5f6c155648bdee4420c0525d93c6"
+            style="height: 2rem; font-size: 16px; font-weight: 600; line-height: 32px"
+            >Buy TAO</a
+          >
           <div class="drop-menu-item">
             <h4>Developers</h4>
             <div class="drop-menu-hidden">
