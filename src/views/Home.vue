@@ -15,6 +15,18 @@
       >
         Enter App
       </router-link>
+       <button 
+       onClick="(function(){
+      window.open('https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x7065DdA3f8Ec5F6C155648BdeE4420c0525D93C6', '_blank');
+})();"
+       class="button button-primary button-centered" 
+       style="
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.8);
+       margin: 1rem auto; max-width: 200px;
+       background-color:#ffb703;
+       border-color:#ffb703;
+
+       ">Buy Now</button>
     </div>
     <div class="block" style="background: #000;" id="what">
       <!--<div class="row-responsive flex-centered" >
