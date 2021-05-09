@@ -5,7 +5,7 @@
 
 # Node artifact files
 node_modules/
-dist/
+docs/
 
 # Compiled Java class files
 *.class
@@ -49,4 +49,3 @@ Thumbs.db
 *.wmv
 
 # VUE build artifacts
-docs/
