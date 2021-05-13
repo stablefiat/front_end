@@ -10,12 +10,12 @@
         <div class="dapp-center-modal-dash">
           <b-container class="container-fullwidth">
             <b-row>
-              <b-col lg="12" md="6" style="padding-right: 40px; border-right: 1px solid #fff">
-                <h1 class="stats-title">TAO Stats</h1>
+              <b-col lg="6" md="6" style="padding-right: 40px;border-right: 1px solidrgba(0, 0, 0, 0.623); ">
+                <h2 class="stats-title">TAO Stats</h2>
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="people" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon icon="people" class="logos"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">TAOists</div>
@@ -27,7 +27,7 @@
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="circle-fill" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon class="logos" icon="circle-fill"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">Total Supply</div>
@@ -37,17 +37,18 @@
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="circle-half" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon class="logos" icon="circle-half"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">Circulating Supply</div>
+                    
                     {{ $store.state.settings.circSupply | formatNumber }} TAO
                   </div>
                 </div>
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <img src="~/@/assets/coin.png" style="width: 50px; height: 50px" alt="" />
+                    <img src="~/@/assets/coin.png" class="logos" alt="" />
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">TAO Price</div>
@@ -59,7 +60,7 @@
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="percent" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon class="logos" icon="percent"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">APY Staking</div>
@@ -71,7 +72,7 @@
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="percent" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon class="logos" icon="percent"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">APR LP Staking</div>
@@ -81,11 +82,11 @@
                   </div>
                 </div>
               </b-col>
-              <b-col lg="12" md="6" style="padding-left: 40px">
-                <h1 class="stats-title">Protocol Stats</h1>
+              <b-col lg="6" md="6" style="padding-left: 40px">
+                <h2 class="stats-title">Protocol Stats</h2>
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="cash-stack" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon class="logos" icon="cash-stack"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">Circ. Market Cap</div>
@@ -101,7 +102,7 @@
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="circle-square" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon icon="circle-square" class="logos"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">Risk free treasury assets</div>
@@ -113,7 +114,7 @@
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="droplet" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon icon="droplet" class="logos"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">Protocol owned liquidity</div>
@@ -130,7 +131,7 @@
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="shield-lock-fill" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon icon="shield-lock-fill" class="logos"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">TVL</div>
@@ -146,7 +147,7 @@
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="percent" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon icon="percent" class="logos"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">Bonding Debt Ratio</div>
@@ -158,7 +159,7 @@
 
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">
-                    <b-icon icon="percent" style="width: 50px; height: 50px"></b-icon>
+                    <b-icon icon="percent" class="logos"></b-icon>
                   </div>
                   <div class="dapp-center-stats-content">
                     <div class="dapp-center-stats-title">Bonding Discount</div>
@@ -171,8 +172,8 @@
             </b-row>
             <hr style="background: #fff" />
             <b-row style="margin-top: 40px; margin-left: 10px; margin-right: 10px">
-              <b-col sm="3">
-                <h1 class="stats-title" style="margin-top: 15px">Your stats</h1>
+              <b-col sm="5">
+                <h2 class="stats-title" style="margin-top: 15px">Your stats</h2>
               </b-col>
               <b-col sm="3">
                 <div class="dapp-center-stats-row">
