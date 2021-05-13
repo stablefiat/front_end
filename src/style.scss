@@ -4,6 +4,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
 
+@font-face {
+  font-family: "Shrimp";
+  src: url("./assets/fonts/SHRIMP.ttf");
+}
+
 $primary: black;
 $secondary: white;
 $trinary: #000;
@@ -11,6 +16,7 @@ $bg-topnav: #52576a;
 $bg-color: #000;
 $bg-disabled: #000;
 $text-disabled: #888888;
+$taoyellow : #ffb803d8;
 
 $body-font-size: 17px;
 $border-radius: 0px;
@@ -48,7 +54,8 @@ body,
 h1,
 h2,
 h3 {
-  font-family: 'Antonio', sans-serif;
+  font-family: shrimp;
+  //font-family: 'Antonio', sans-serif;
   font-weight: 800;
 }
 
@@ -94,7 +101,7 @@ a {
   width: 100vw;
   min-height: 100vh;
   height: 100%;
-  background-image: url(./assets/hero.jpg);
+  background-image:linear-gradient(180deg, rgba(255,255,255,0) 75%, rgba(0,0,0,1) 100%), url(./assets/hero.jpg) ;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -187,9 +194,9 @@ nav {
   color: #000;
 }
 .feature-block-desc {
-  font-size: 0.8rem;
+  font-size: 1rem;
   h3 {
-    font-size: 1rem;
+    font-size: 1.2rem;
     @extend .mb-2;
   }
   padding: 1rem;
@@ -198,19 +205,34 @@ nav {
   padding: unset !important;
 }
 
+
+
 .feature-box-module {
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-  background-color: #000;
+  box-shadow: 0px 0px 2px rgba(3, 3, 5, 0.5);
+  background-color: #111111;
   display: flex;
   flex-flow: column;
   width: 300px;
   min-height: 1rem;
   height: 330px;
-  margin: 2rem;
-  border-radius: 1rem;
-  border: 1px solid white;
+  margin: 1.2rem;
+  border-radius: 0.8rem;
   overflow: hidden;
+
+  h3{
+    font-family: 'Poppins', sans-serif;
+    
+  }
+
 }
+
+#buynow-btn{
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.8);
+  margin: 0.1rem auto;
+  background-color:#ffb703;
+  border-color:#ffb703;
+}
+
 
 .works-module-responsive {
   display: flex;
@@ -553,13 +575,13 @@ nav {
 .dapp-center-modal-dash {
   position: relative;
   padding: 40px 40px 10px;
-  width: 70%;
+  width: 96%;
   min-width: 600px;
   min-height: 400px;
   margin: auto;
-  border-radius: 1rem;
-  background-color: #000c;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.888);
+  box-shadow: 0px 0px 10px 1px #25252570;
   display: flex;
   flex-flow: wrap;
   justify-content: center;
@@ -576,34 +598,45 @@ a:hover {
 }
 
 .stats-title {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   text-transform: uppercase;
-  font-size: 40px;
+  font-size: 35px;
+  letter-spacing: 0.2rem;
+  font-weight: 300;
+  color: $taoyellow;
 }
 .dapp-center-stats-row {
   width: 100%;
   display: flex;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   // flex-direction: column;
 }
 
 .dapp-center-stats-title {
-  font-size: 24px;
-  margin-bottom: 10px;
+  text-align: left;
+  font-size: 1.125rem;
+  margin-bottom: 2px;
 }
 
 .dapp-center-stats-subtitle {
-  font-size: 18px;
+  font-size: 1rem;
   color: #ccc;
+  font-weight: 800;
 }
 
 .dapp-center-stats-logo {
-  width: 100px;
+  
+  width: 80px;
+  .logos {
+    width: 40px;
+    height: 40px;
+    
+  }
 }
 
 .dapp-center-stats-content {
   flex: 1;
-  text-align: right;
+  
 }
 footer {
   height: 450px;
@@ -1481,5 +1514,53 @@ Responsive styles
 @media only screen and (min-width: 1025px) {
   .h-hidden-desktop {
     display: none !important;
+  }
+}
+
+/*13 INCH LAPTOPS*/
+@media only screen and (max-width: 1300px) {
+
+  .dapp-center-modal-dash{
+    margin: 2%;
+  }
+  
+  .stats-title{
+    font-size:2rem;
+    margin-bottom: 20px;
+  }
+
+  .dapp-center-stats-logo{
+    width: 48px;
+    .logos{
+      width: 24px;
+    }
+  }
+  .dapp-center-stats-row{
+    margin-bottom: 16px;
+  }
+  .dapp-center-stats-title{
+    font-size:1rem;
+  }
+  .disconnect-button{
+    font-size:0.8rem;
+    height: 2%;
+    line-height: 30px;
+    padding-left: 25%;
+    padding-right: 25%;
+    min-width: 100px;
+  }
+  .button-secondary, .button-dapp-menu{
+   
+    height: 40px;
+
+  }
+  .dapp-menu-links{
+    justify-content:stretch;
+
+  }
+  .button-secondary.router-link-exact-active, .router-link-exact-active.button-dapp-menu{
+    height: 54px;
+   
+    
   }
 }
