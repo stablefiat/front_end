@@ -75,6 +75,7 @@
               <a target="_blank" href="https://twitter.com/TaoDAO_Finance">Twitter</a>
               <a target="_blank" href="https://discord.gg/vFTCUZ7mpJ">Discord</a>
               <a target="_blank" href="https://taodao-finance.medium.com/">Blog</a>
+              <a target="_blank" href="https://www.youtube.com/channel/UCS4Zgjb4lqB8v5RPgrOq1Cw/">Youtube</a>
             </div>
           </div>
         </div>
