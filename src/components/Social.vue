@@ -12,6 +12,10 @@
     <a target="_blank" href="https://discord.gg/vFTCUZ7mpJ"
       ><img src="~/@/assets/discord.svg" alt="" class="social-icon-small"
     /></a>
+    <a target="_blank" href="https://www.youtube.com/channel/UCS4Zgjb4lqB8v5RPgrOq1Cw"
+    
+      ><img src="~/@/assets/icons8-play-button.svg" alt="" class="social-icon-small"
+    /></a>
   </div>
 </template>
 
