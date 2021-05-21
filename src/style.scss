@@ -54,7 +54,7 @@ body,
 h1,
 h2,
 h3 {
-  font-family: shrimp;
+  //font-family: shrimp;
   //font-family: 'Antonio', sans-serif;
   font-weight: 800;
 }
@@ -85,6 +85,23 @@ a {
 
   &:hover {
     text-decoration: none;
+  }
+}
+
+
+
+
+.fade-in {
+	animation: fadeIn 2s;
+  	opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+  	opacity: 0;
+  }
+  to {
+ 	opacity: 1;
   }
 }
 .vue-particles {
@@ -1496,8 +1513,42 @@ Responsive styles
 /* ==========================================================================
 5. Responsive Helpers
 ========================================================================== */
-
+//MOBILE
 @media only screen and (max-width: 767px) {
+
+  /*homepage*/
+.works-module-responsive {
+  display: flex;
+  flex-flow:column;
+  justify-content: center;
+  align-items: center;
+  .works-desc {
+    text-align: center;
+    h3 {
+      text-align: center;
+    }
+  }
+}
+/*dashboard*/
+.dapp {
+  background-position: center right;
+}
+
+.cur-max-box {
+
+  margin-left: -10rem;
+
+}
+
+
+
+
+
+
+
+
+
+
   .h-hidden-mobile {
     display: none !important;
   }
@@ -1526,6 +1577,7 @@ Responsive styles
   
   .stats-title{
     font-size:2rem;
+    line-height: 1.2;
     margin-bottom: 20px;
   }
 

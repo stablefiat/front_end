@@ -82,7 +82,7 @@
                   </div>
                 </div>
               </b-col>
-              <b-col lg="6" md="6" style="padding-left: 40px">
+              <b-col lg="6" md="6" class="protocol-stats">
                 <h2 class="stats-title">Protocol Stats</h2>
                 <div class="dapp-center-stats-row">
                   <div class="dapp-center-stats-logo">

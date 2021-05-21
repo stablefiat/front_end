@@ -2,9 +2,7 @@
   <div class="column">
     <Nav />
     <div class="block hero">
-      
-      <div class="hero-icon"><img src="~/@/assets/TAO Logo.svg" alt="" /></div>
-      <h1 class="mb-4 main-title">An Algorithmic Currency Protocol</h1>
+      <h1 class="mb-4 main-title ">An Algorithmic Currency Protocol</h1>
       <p class="centered-text hero-desc">
         TAO DAO utilizes Protocol Owned Value to enable price consistency and scarcity within an
         infinite supply system. Forked from OHM with additional improvements.
@@ -12,7 +10,7 @@
       <router-link
         :to="{ name: 'dashboard' }"
         style="margin:2rem auto;max-width:200px;"
-        class="button button-primary button-centered"
+        class="button button-primary button-centered fade-in"
       >
         Enter App
       </router-link>
@@ -20,7 +18,7 @@
        onClick="(function(){
       window.open('https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x7065DdA3f8Ec5F6C155648BdeE4420c0525D93C6', '_blank');
 })();"
-       class="button button-primary button-centered " id="buynow-btn">Buy Now</button>
+       class="button button-primary button-centered fade-in" id="buynow-btn">Buy Now</button>
 
     
     </div>
